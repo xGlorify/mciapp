@@ -1,0 +1,64 @@
+{% extends "basehead.html" %}
+{% block content %}
+<html>
+</head>
+<br>
+<center>
+    <div class="container">
+        <div class="panel panel-default" id = "workorderFilterFormPanel">
+            <div class="panel-heading clearfix"><h4 class="pull-left">Workorder Filter</h4>
+            </div>
+                <div class = "table-responsive">
+                    <table class = "table table-bordered" style ="">
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Customer PO</th>
+                        <th>Requested By</th>
+                        <th>Work Description</th>
+                        <th>Status</th>
+                        <th>Submit</th>
+                            <tr><form action="{{ url_for('filter_workorder') }}" method="POST">
+                                <td class="col-md-1">{{ form.id(class='form-control') }}</td>
+                                <td>{{ form.date(class="datepicker") }}</td>
+                                <td>{{ form.customer_po(class='form-control') }}</td>
+                                <td>{{ form.requested_by(class='form-control') }}</td>
+                                <td>{{ form.work_description(class='form-control') }}</td>
+                                <td>{{ form.status(class='form-control') }}</td>
+                                <td><input class="btn btn-success" type="submit" value="Search"/>
+                                    </form>
+                                    {{ form.hidden_tag() }}
+                                </td>
+                            </tr>
+                    </tr>
+                    </table>
+                </div>
+        </div>
+        {% if results %}
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix"><h4 class="pull-left">Results</h4></div>
+                <div class = "table-responsive">
+                    <table class = "table table-bordered">
+                        <th>Workorder ID</th>
+                        <th>Created Date</th>
+                        <th>Customer PO</th>
+                        <th>Requested By</th>
+                        <th>Work Description</th>
+                        <th>Status</th>
+                        {% for x in results %}
+                            <tr>
+                                <td>MCI{{ x.id}}</td>
+                                <td>{{ x.date }}</td>
+                                <td>{{ x.customer_po }}</td>
+                                <td>{{ x.requested_by }}</td>
+                                <td>{{ x.work_description }}</td>
+                                <td>{{ x.status }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+</center>
+
+{% endblock %}

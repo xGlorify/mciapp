@@ -1,0 +1,78 @@
+{% extends "basehead.html" %}
+{% block content %}
+<html>
+  <script src="/static/edithours.js"></script>
+  <script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
+    });
+</script>
+</head>
+<br>
+<center>
+    <div class="container">
+    <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+    <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+        <div class="panel panel-default" id = "hoursInformationPanel">
+            <div class="panel-heading clearfix"><h4 class="pull-left">Workorder Hour Entry Edit</h4>
+            {% for y in workorder %}
+                <a href="{{ url_for('workorder_profile', id = y.id) }}"><button class="btn btn-primary pull-right" id="returnBtn" style="display:none;">Return to Workorder</button></a>
+            {% endfor %}
+            </div>
+                <div class = "table-responsive">
+                    <table class = "table table-bordered" style ="">
+                    <tr>
+                        <th>Employee</th>
+                        <th>Date</th>
+                        <th>Regular Hours</th>
+                        <th>OT 1.5x</th>
+                        <th>OT 2.0x</th>
+                        <th>Action</th>
+                            <tr>
+                                {{ form.hour_id }}
+                                <td>{{ form.employee_name(class='form-control') }}</td>
+                                <td>{{ form.date(class='form-control', value=hour_entry.date) }}</td>
+                                <td>{{ form.regular_hours(class='form-control', value=hour_entry.regular_hours) }}</td>
+                                <td>{{ form.ot_onehalf(class='form-control', value=hour_entry.ot_onehalf) }}</td>
+                                <td>{{ form.ot_double(class='form-control', value=hour_entry.ot_double) }}</td>
+                                <td><form action="{{ url_for('edit_hours_api') }}" method="POST" id="hoursSaveBtn" class="btn btn-success">Save</form></td>
+                                <td><a href="{{ url_for('delete_hours_api', id=hour_entry.id) }}" method="POST" id="hoursDelBtn" class="btn btn-danger">Delete</a></td>
+                            </tr>
+                    </tr>
+                    </table>
+                </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix"><h4 class="pull-left">Associated Workorder</h4></div>
+                <div class = "table-responsive">
+                    <table class = "table table-bordered">
+                        <th>Workorder ID</th>
+                        <th>Created Date</th>
+                        <th>Customer</th>
+                        <th>Customer PO</th>
+                        <th>Requested By</th>
+                        <th>Work Description</th>
+                        <th>Status</th>
+                        {% for x in workorder %}
+                            <tr>
+                                <td>MCI{{ x.id}}</td>
+                                <td>{{ x.date }}</td>
+                                <td>{{ x.customer }}</td>
+                                <td>{{ x.customer_po }}</td>
+                                <td>{{ x.requested_by }}</td>
+                                <td>{{ x.work_description }}</td>
+                                <td>{{ x.status }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+</center>
+
+{% endblock %}

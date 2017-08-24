@@ -1,0 +1,55 @@
+<head>
+  <title>MCI Workflow App - Login</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
+<html>
+<br>
+<body>
+<div class="container">
+	<div class="panel panel-default" id = "workorderPanel">
+		<div class="panel-heading clearfix" id = "workorderPanelHeading"><h4 class="pull-left">Login</h4>
+		<img src="/static/MCI_Automation.jpg" class="pull-right">
+		</div>
+			<div class="panel-body">
+				<form class="form-horizontal" method="post" name="submit">
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">First Name</label>
+				    <div class="col-sm-10">
+				      {{ form.login_email(placeholder='Email Address', class='form-control') }}
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">Last Name</label>
+				    <div class="col-sm-10">
+				      {{ form.login_password(placeholder='Password', class='form-control') }}
+				    </div>
+				  </div>
+				  {{ form.hidden_tag() }}		 
+				  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				      <input class="btn btn-default" type="submit" value="Login">
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+	
+      {% for message in get_flashed_messages() %}
+      	{% if message %}
+			<div id="errorAlert" class="alert alert-danger" role="alert" style="">
+          {{ message }}
+			</div>
+		{% endif %}
+      {% endfor %}
+</div>
+</body>
+</html>

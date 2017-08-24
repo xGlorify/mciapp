@@ -1,0 +1,39 @@
+{% extends "basehead.html" %}
+{% block content %}
+<center>
+<br>
+</br>
+<div class="container">
+    <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+    <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+	<table class="table table-striped table-bordered">
+	<th>Action</th>
+	<th>Workorder ID</th>
+	<th>Customer</th>
+	<th>Date</th>
+	<th>Customer PO</th>
+	<th>Requested By</th>
+	<th>Work Description</th>
+	<th>Status</th>
+	{% for workorder in workorders %}
+	    <tr>
+	        <td>
+	        <br>
+	        <form action="{{ workorder.id }}" method="get">
+	        <input type="submit" class="btn btn-xs btn-info" value="View"/>
+	        </form>
+	        </td>
+	        <td>{{ workorder.id }}</td>
+	        <td>{{ workorder.customer }}</td>
+	        <td>{{ workorder.date }}</td>
+	        <td>{{ workorder.customer_po }}</td>
+	        <td>{{ workorder.requested_by }}</td>
+	        <td>{{ workorder.work_description }}</td>
+	        <td>{{ workorder.status }}</td>
+	    </tr>
+	{% endfor %}
+	</table>
+</div>
+</center>
+
+{% endblock %}

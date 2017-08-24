@@ -1,0 +1,40 @@
+{% extends "basehead.html" %}
+{% block content %}
+<html>
+  <script src="{{ url_for('static', filename='create_company.js') }}"></script>
+  <script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
+    });
+</script>
+</head>
+<body>
+<div class="container">
+	<br><br><br><br>
+	<form class="form-inline">
+		<div class='form-group'>
+	    {{ form.company_name(placeholder='Company Name', class='form-control') }}
+		{{ form.company_address(placeholder='Company Address', class='form-control') }}
+		{{ form.company_city(placeholder='City', class='form-control') }}
+		{{ form.company_postal(placeholder='Postal', class='form-control') }}
+		{{ form.company_phone(placeholder='Company Phone', class='form-control') }}
+
+	     {{ form.hidden_tag() }}
+	    </div>
+	  <button type="submit" class="btn btn-default">Submit</button>
+	</form>
+	<br>
+	<div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+	<div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+
+</div>
+</div>
+</body>
+</html>
+{% endblock %}

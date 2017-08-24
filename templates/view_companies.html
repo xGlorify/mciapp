@@ -1,0 +1,31 @@
+{% extends "basehead.html" %}
+{% block content %}
+<center>
+<br>
+</br>
+<table class="table table-striped table-bordered">
+<th>Action</th>
+<th>Company</th>
+<th>Address</th>
+<th>City</th>
+<th>Postal</th>
+<th>Phone</th>
+{% for company in companies %}
+    <tr>
+        <td>
+        <br>
+        <form action="{{ company.id }}" method="get">
+        <input type="submit" class="btn btn-xs btn-info" value="View"/>
+        </form>
+        </td>
+        <td>{{ company.company_name }}</td>
+        <td>{{ company.company_address }}</td>
+        <td>{{ company.company_city }}</td>
+        <td>{{ company.company_postal }}</td>
+        <td>{{ company.company_phone }}</td>
+    </tr>
+{% endfor %}
+</table>
+</center>
+
+{% endblock %}
